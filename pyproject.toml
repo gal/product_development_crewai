@@ -15,6 +15,8 @@ train = "product_development.main:train"
 replay = "product_development.main:replay"
 test = "product_development.main:test"
 
+server = "chat.agent:run"
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
