@@ -146,12 +146,12 @@ server = Server()
 def product_development_agent(input: List[Message], context: Context) -> Iterator:
     input = {"idea": input[-1].parts[-1].content}
     try:
-        llm = LLM(
-            model=f"openai/{os.getenv('LLM_MODEL', 'llama3.1')}",
-            base_url=os.getenv("LLM_API_BASE", "http://localhost:11434/v1"),
-            api_key=os.getenv("LLM_API_KEY", "dummy"),
-        )
-        result = ProductDevelopment().crew(llm).kickoff(inputs={"idea": input})
+        # llm = LLM(
+        #     model=f"openai/{os.getenv('LLM_MODEL', 'llama3.1')}",
+        #     base_url=os.getenv("LLM_API_BASE", "http://localhost:11434/v1"),
+        #     api_key=os.getenv("LLM_API_KEY", "dummy"),
+        # )
+        result = ProductDevelopment().crew().kickoff(inputs={"idea": input})
         print(result)
         yield MessagePart(content=result.raw)
     except:
