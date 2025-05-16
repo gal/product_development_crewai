@@ -1,0 +1,45 @@
+
+feature_extraction_task:
+  description: |
+    Your goal is to filter out any non-feature information from the project idea, leaving only the specific features and goals of this project.
+  expected_output: |
+    A list of features that will be requirements for an MVP of this project.
+  agent: feature_focused_product_manager
+
+product_name_task:
+  description: >
+    Review the given project idea, then come up with a set of example names. These names must not clash with existing similar products.
+  expected_output: >
+    A list of suggested names and what makes them special.
+  agent: brand_name_specialist
+
+copy_text_task:
+  description: >
+    Review the project idea, and give a set of example copy text subheadings for the jumbotron on this projects landing page.
+  expected_output: >
+    A list of suggestions for copy text subheadings.
+  agent: copy_writer
+
+competitor_analysis_task:
+  description: |
+    Your goal is to find competitor projects and products with similar goals and aims. You will search the web for competitors, and use the results to perform market analysis on each competitor found.
+
+    You will also investigate what sets each customer apart from the proposed project idea.
+  expected_output:  |
+    A list of competitors, with each given a small paragraph detailing what sets them apart and what their main goals and aims are.
+  agent: competitor_analyst
+
+technical_requirements_task:
+  description: |
+    Your goal is to assess the project idea, and lay out overall technologies that will be required to execute this project.
+  expected_output: |
+    A list of required technologies. Exclude anything obvious like Git, secrets management, CI/CD, etc.
+  agent: software_system_architect
+
+business_analysis_reporting_task:
+  description: |
+    Given the following information about the project, create a write-up that summarizes what it does differently to competitors, where there are gaps in the project, and how to address them.
+    Include information about how competitors are winning in their corner of the market.
+  expected_output: |
+    Well-formed markdown with professional writing tone, but easy to understand.
+  agent: business_analyst_report_writer
