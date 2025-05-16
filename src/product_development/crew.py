@@ -161,7 +161,20 @@ server = Server()
                 "required": True,
                 "description": "Project ID"
             }
-        ]
+        ],
+
+        programming_language="Python",
+        links=[
+            Link(
+                type=LinkType.SOURCE_CODE,
+                url=AnyUrl(
+                    f"https://github.com/gal/product_development_crewai/blob/{os.getenv('RELEASE_VERSION', 'main')}"
+                    "/"
+                ),
+            )
+        ],
+        license="Apache 2.0",
+        framework="Custom",
     )
 )
 def product_development_agent(input: List[Message], context: Context) -> Iterator:
