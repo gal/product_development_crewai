@@ -4,6 +4,8 @@ from crewai import LLM, Agent, Crew, Process, Task
 from crewai.crew import BaseTool
 from crewai.project import CrewBase, agent, crew, task
 
+from pydantic import AnyUrl
+
 from acp_sdk import MessagePart, Metadata, Link, LinkType
 from acp_sdk.server import Server, Context
 from acp_sdk.models import Message
