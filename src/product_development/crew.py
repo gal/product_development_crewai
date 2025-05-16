@@ -162,12 +162,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-    # idea = input("Enter project idea: ")
-    # if not idea:
-    #     idea = "A chat interface where an employee can search for answers, where an LLM will use internal documentation to answer their question. GitHub, Jira, and Slack integrations will be used."
-    #     print(idea)
-    #     print()
-    # inputs = {
-    #     "idea": idea
-    # }
-    # ProductDevelopment().crew().kickoff(inputs=inputs)
