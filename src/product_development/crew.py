@@ -10,6 +10,7 @@ from acp_sdk.models import Message
 
 # from langchain_community.tools import DuckDuckGoSearchResults
 from crewai_tools import SerperDevTool
+from langchain_ibm import ChatWatsonx
 
 # If you want to run a snippet of code before or after the crew starts, 
 # you can use the @before_kickoff and @after_kickoff decorators
@@ -136,29 +137,57 @@ class ProductDevelopment():
             process=Process.sequential,
             verbose=True, 
         )
+
+
 server = Server()
+
 
 @server.agent(
     metadata=Metadata(
         ui={"type": "hands-off", "user_greeting": "What is the project you would like to analyze?"},
+        env=[
+            {
+                "name": "WATSONX_URL",
+                "required": True,
+                "description": "Watsonx.ai region."
+            },
+            {
+                "name": "WATSONX_APIKEY",
+                "required": True,
+                "description": "API Key"
+            },
+            {
+                "name": "WATSONX_INSTANCE_ID",
+                "required": True,
+                "description": "Project ID"
+            }
+        ]
     )
 )
 def product_development_agent(input: List[Message], context: Context) -> Iterator:
     input = {"idea": input[-1].parts[-1].content}
     try:
-        # llm = LLM(
-        #     model=f"openai/{os.getenv('LLM_MODEL', 'llama3.1')}",
-        #     base_url=os.getenv("LLM_API_BASE", "http://localhost:11434/v1"),
-        #     api_key=os.getenv("LLM_API_KEY", "dummy"),
-        # )
-        result = ProductDevelopment().crew().kickoff(inputs={"idea": input})
+
+        llm = ChatWatsonx(
+            model_id="ibm/granite-3-2b-instruct",
+            url=os.getenv("WATSONX_URL", "https://us-south.ml.cloud.ibm.com"),
+            project_id="WATSONX_INSTANCE_ID",
+        )
+
+        crew = ProductDevelopment().crew()
+
+        crew.chat_llm = llm
+        crew.manager_llm = llm
+        crew.function_calling_llm = llm
+
+        result = crew.kickoff(inputs={"idea": input})
         print(result)
         yield MessagePart(content=result.raw)
     except:
         raise
 
 def run():
-    server.run(host=os.getenv("HOST", "127.00.1"), port=int(os.getenv("PORT", 8000)))
+    server.run(host=os.getenv("HOST", "127.0.0.1"), port=int(os.getenv("PORT", 8000)))
 
 if __name__ == "__main__":
     run()
