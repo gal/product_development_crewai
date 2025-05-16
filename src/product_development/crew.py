@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Iterator
 import os
 from crewai import LLM, Agent, Crew, Process, Task
 from crewai.crew import BaseTool

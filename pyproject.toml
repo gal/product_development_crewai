@@ -3,8 +3,10 @@ name = "product_development"
 version = "0.1.0"
 description = "product_development using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.11,<3.13"
 dependencies = [
+    "acp-sdk>=0.8.1",
+    "crewai[tools]",
     "crewai[tools]>=0.95.0,<1.0.0"
 ]
 
@@ -15,7 +17,7 @@ train = "product_development.main:train"
 replay = "product_development.main:replay"
 test = "product_development.main:test"
 
-server = "chat.agent:run"
+server = "product_development.crew:run"
 
 [build-system]
 requires = ["hatchling"]
