@@ -157,7 +157,7 @@ server = Server()
                 "description": "API Key"
             },
             {
-                "name": "WATSONX_INSTANCE_ID",
+                "name": "WATSONX_PROJECT_ID",
                 "required": True,
                 "description": "Project ID"
             }
@@ -171,7 +171,7 @@ def product_development_agent(input: List[Message], context: Context) -> Iterato
         llm = ChatWatsonx(
             model_id="ibm/granite-3-2b-instruct",
             url=os.getenv("WATSONX_URL", "https://us-south.ml.cloud.ibm.com"),
-            project_id="WATSONX_INSTANCE_ID",
+            project_id=os.getenv("WATSONX_PROJECT_ID"),
         )
 
         crew = ProductDevelopment().crew()
