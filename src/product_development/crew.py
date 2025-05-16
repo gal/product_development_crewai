@@ -183,12 +183,9 @@ def product_development_agent(input: List[Message], context: Context) -> Iterato
     input = {"idea": input[-1].parts[-1].content}
     try:
 
-        llm = ChatWatsonx(
-            model_id="ibm/granite-3-2b-instruct",
-            url=os.getenv("WATSONX_URL", "https://us-south.ml.cloud.ibm.com"),
-            project_id=os.getenv("WATSONX_PROJECT_ID"),
+        llm = LLM(
+            model="watsonx/ibm/granite-3-2b-instruct"
         )
-
         crew = ProductDevelopment().crew()
 
         crew.chat_llm = llm
